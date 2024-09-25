@@ -3,11 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --onSurface: #333333;
+  --primary: #F5CAC3;
+  --onPrimary: #4D0421 ;
+  --surface: #f1f5fa;
+  /* --secondary: #A0E1E0; */
+  --secondary:rgb(105, 197, 185);
+  --accent: #DBD9FA;
+  --navBarPadding: 100px;
+  --navBarTop: 100px;
+
+}
+ body {
+  @apply bg-surface text-onSurface;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -24,4 +35,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
