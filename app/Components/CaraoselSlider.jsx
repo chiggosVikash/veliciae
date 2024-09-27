@@ -4,7 +4,7 @@ import React from 'react'
 
 const CaraoselSlider = () => {
   return (
-    <div className="max-w-full pt-[calc(80px+45px)]">
+    <div className="max-w-full md:pt-[calc(80px+55px)] pt-[80px]">
   <Carousel autoplay={true} loop={true} transition={{ duration: 1, }} 
    className="lg:h-[80vh] sm:h-[40vh] h-[25vh] ">
   <img

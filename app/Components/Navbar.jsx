@@ -1,4 +1,5 @@
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import Link from "next/link";
 import Logo from "../assets/velciae_logo.png";
 import SearchField from "./SearchField";
@@ -7,19 +8,19 @@ import { IoPerson } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import MenuBar from "./MenuBar";
-import {
-  FaSearch,
-  FaCamera,
-  FaUser,
-  FaHeart,
-  FaShoppingCart,
-  FaStore,
-} from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
+import { RiMenu3Line } from "react-icons/ri";
+import { menuitems } from "../menuitems";
+
 
 const Navbar = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  const handleMenu = () => {
+    setShowMenu(!showMenu);
+  }
   return (
-    <div className="fixed z-50 w-full bg-primary">
-      <nav className="flex justify-between bg-primary  h-[80px] lg:px-12 px-4 items-center ">
+    <nav className="fixed z-[100] w-full bg-primary">
+      <div className="flex justify-between bg-primary  h-[80px] lg:px-12 px-4 items-center ">
         {/* Logo Image */}
         <img
           src={Logo.src}
@@ -57,9 +58,30 @@ const Navbar = () => {
             </li>
           </div>
         </ul>
-      </nav>
+        <div 
+           onClick={handleMenu}
+           className="md:hidden z-50 ml-4 text-2xl text-onPrimary">
+            {showMenu? <FaTimes /> : <RiMenu3Line />}
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={ showMenu?'md:hidden absolute flex flex-col h-screen bg-primary w-[50%] top-0 right-0':'hidden'}>
+          <div className=" h-[80px] w-full flex flex-col  mx-5 justify-center">
+            <h1 className="uppercase">Veliciae</h1>
+            <p  className=" w-[70%] text-xs">The quest of luxury ends here.</p>
+          </div>
+          <ul>
+            {
+              menuitems.map((item, index) => {
+                return <li key={index} className="text-lg py-2 mx-4"><Link href={item.path}>{item.title}</Link></li>;
+              })
+            }
+          </ul>
+        </div>        
+
+      </div>
       <MenuBar />
-    </div>
+    </nav>
   );
 };
 

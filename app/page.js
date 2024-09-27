@@ -1,25 +1,21 @@
 import React from 'react'
-import Navbar from './Components/Navbar'
 import CaraoselSlider from './Components/CaraoselSlider'
 import ShopByCategorySection from './Components/ShopByCategorySection'
 import ShopByCollections from './Components/ShopByCollections'
 import SubBanner from './Components/SubBanner'
 import LatestProductsSection from './Components/LatestProductsSection'
 import ShopByGenderSection from './Components/ShopByGenderSection'
-import Footer from './Components/Footer'
 
 
 const page = () => {
   return (
     <div>
-      <Navbar />
       <CaraoselSlider />
       <ShopByCategorySection />
       <ShopByCollections />
       <SubBanner />
       <LatestProductsSection/>
       <ShopByGenderSection/>
-      <Footer />
 
 
       {/* <div className="container mx-auto">

@@ -47,7 +47,7 @@ const ShopByGenderSection = () => {
                     <div key={index} className='bg-primary hover:scale-105 transition duration-700 p-2  md:my-0  rounded-2xl shadow-lg relative hover:shadow-xl '>
                         <img src={gender.image} alt={gender.title} />
                         <div className={`${baskervville.className} flex justify-between mt-2 px-4`}>
-                            <h3 className={`text-lg font-bold`}>{gender.title}</h3>
+                            <h3 className={`text-lg font-bold text-center`}>{gender.title}</h3>
                             <button>Explore Now</button>
                         </div>
                     </div>
