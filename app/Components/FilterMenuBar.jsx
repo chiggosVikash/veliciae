@@ -80,7 +80,7 @@ const filtersData = [
 const FilterMenuBar = () => {
  
   return (
-        <sidebar className="md:h-max h-[80vh]  overflow-y-auto lg:w-[20%] md:z-0 z-50 md:w-[25%] w-[50%] top-[150px] left-0 md:static absolute bg-white shadow-sm rounded-lg p-4">
+        <sidebar className="md:h-max h-[75vh]  overflow-y-auto lg:w-[20%] md:z-0 z-50 md:w-[25%] w-[50%] top-[150px] left-0 md:static absolute bg-white shadow-sm rounded-lg p-4">
         <div className={`${dmSerifText.className}`}>
           <h1 className="text-2xl  text-onSurface ">Filters</h1>
         </div>
