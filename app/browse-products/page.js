@@ -9,6 +9,7 @@ import ProductImage3 from "../assets/productimage3.png";
 import { Baskervville } from "next/font/google";
 import { FaFilter } from "react-icons/fa6";
 import SortingMenu from "../Components/SortingMenu";
+import Router, { useRouter } from "next/navigation";
 
 const baskervville = Baskervville({
   weight: "400",
@@ -16,6 +17,8 @@ const baskervville = Baskervville({
 });
 
 const BrowseProductsPage = () => {
+  const router = useRouter();
+
   const productsData = [
     {
       name: "Gold Necklace",
@@ -101,7 +104,6 @@ const BrowseProductsPage = () => {
     <main className="md:pt-[calc(80px+55px)] pt-[80px] lg:px-12 px-4">
       <div className="flex items-center py-2">
         <h1 className="text-xs">Home</h1>
-
         <MdKeyboardDoubleArrowRight className="text-xs mx-2" />
         <h1 className="text-xs">Product</h1>
       </div>
@@ -129,6 +131,9 @@ const BrowseProductsPage = () => {
             {productsData.map((product, index) => {
               return (
                 <div
+                  onClick={() => {
+                      router.push('/browse-products/1');
+                  }}
                   key={index}
                   className="border border-gray-300 p-2 rounded-xl group cursor-pointer hover:bg-white"
                 >

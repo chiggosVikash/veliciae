@@ -9,12 +9,16 @@ export const menuitems = [
     },
     {
         title: "About Us",
-        path: "/" 
+        path: "/about-us" 
     },
     {
         title: "Contact Us",
         path: "/" 
     },
+    {
+        title: "Add to Cart",
+        path: "/add-to-cart"
+    }
     
 
 ];
