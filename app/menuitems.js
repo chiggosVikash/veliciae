@@ -13,12 +13,15 @@ export const menuitems = [
     },
     {
         title: "Contact Us",
-        path: "/" 
+        path: "/contact-us" 
     },
     {
         title: "Add to Cart",
         path: "/add-to-cart"
+    },
+    {
+        title: "Wishlist",
+        path: "/wishlist"
     }
-    
 
 ];
