@@ -1,13 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import {  FaShoppingCart, FaTrash } from 'react-icons/fa';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import WishlistProduct from '../assets/wishlist-product.png';
 import Heart from '../assets/heart.png';
 import { Baskervville } from 'next/font/google';
 import { MdElectricBolt } from "react-icons/md";
+import PageHeader from '../Components/PageHeader';
 
 
 const baskervville = Baskervville({
@@ -40,23 +39,7 @@ const Wishlist = () => {
       transition={{ duration: 0.5 }}
       className="md:pt-[calc(80px+55px)] pt-[80px] px-4 sm:px-6 lg:px-16 max-w-7xl mx-auto mb-24"
     >
-      <div className={`flex items-center justify-center mt-8`}>
-        <div className='sm:flex  hidden h-[1px] w-[30%] bg-gray-300'></div>
-        <div className="flex px-6  items-center py-3 mx-6 border-2 border-primary rounded-tl-[30%] rounded-br-[30%]">
-          <h1 className="lg:text-4xl md:text-2xl text-xl font-bold text-onPrimary whitespace-nowrap ">
-            In Your Wishlist
-          </h1>
-          <Image
-            src={Heart}
-            alt="Heart"
-            width={40}
-            height={24}
-            className="mx-4 w-[20px] h-[15px] sm:w-[30px] sm:h-[18px] md:w-[40px] md:h-[35px] object-contain"
-          />
-        </div>
-        <div className='h-[1px] w-[30%] sm:flex hidden bg-gray-300'></div>
-
-      </div>
+      <PageHeader header="In Your Wishlist" icon={Heart}/>
       {wishlistItems.length === 0 ? (
         <p className="text-onSurface text-center text-lg">Your wishlist is empty. Start adding your dream jewelry!</p>
       ) : (

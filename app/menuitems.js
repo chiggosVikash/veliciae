@@ -16,12 +16,25 @@ export const menuitems = [
         path: "/contact-us" 
     },
     {
-        title: "Add to Cart",
-        path: "/add-to-cart"
+        title: "My Orders",
+        path: "/my-orders"
     },
     {
-        title: "Wishlist",
-        path: "/wishlist"
-    }
+        title: "Order Details",
+        path: "/orders-details"
+    },
+    {
+        title: "Checkout",
+        path: "/checkout"
+    },
+    {
+        title: "My Profile",
+        path: "/my-profile"
+    },
+    {
+        title: "My Address",
+        path: "/my-address"
+    },
+    
 
 ];

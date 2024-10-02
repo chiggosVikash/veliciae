@@ -36,25 +36,35 @@ const Navbar = () => {
           <div className="flex flex-col items-center hover:border-b-2 border-onPrimary ">
             <FaShop className="text-sm mb-1 text-onPrimary" />
             <li className="uppercase text-sm text-onPrimary mb-2">
-              <Link href="/">Shop</Link>
+              <Link href="/browse-products">Shop</Link>
             </li>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center relative group">
             <IoPerson className="text-sm mb-1 text-onPrimary" />
-            <li className="uppercase text-sm text-onPrimary">
-              <Link href="/">Account</Link>
+            <li className="uppercase text-sm text-onPrimary cursor-pointer ">
+              Account
             </li>
+            <div className="absolute top-full left-0  w-52 bg-white rounded-lg shadow-xl hidden group-hover:block transition-all duration-300 ease-in-out transform group-hover:translate-y-0 translate-y-1 opacity-0 group-hover:opacity-100">
+              <div className="p-4 flex flex-col items-center justify-center">
+                <h2 className="text-lg font-bold text-onPrimary mb-1">MY ACCOUNT</h2>
+                <p className="text-xs text-gray-600 mb-4">Login to access your account</p>
+                <div className="flex space-x-3">
+                  <Link href="/signin" className="text-xs text-onPrimary bg-primary hover:bg-accent transition-colors duration-300 rounded-md px-4 py-1 text-center font-semibold shadow-md hover:shadow-lg">Login</Link>
+                  <Link href="/signup" className="text-xs text-onPrimary border border-primary  hover:border-accent transition-colors duration-300 rounded-md px-4 py-1 text-center font-semibold">Signup</Link>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col items-center">
             <FaRegHeart className="text-sm mb-1 text-onPrimary" />
             <li className="uppercase text-sm text-onPrimary">
-              <Link href="/">Wishlist</Link>
+              <Link href="/wishlist">Wishlist</Link>
             </li>
           </div>
           <div className="flex flex-col items-center">
             <IoCartOutline className="text-sm mb-1 text-onPrimary" />
             <li className="uppercase text-sm text-onPrimary">
-              <Link href="/">Cart</Link>
+              <Link href="/add-to-cart">Cart</Link>
             </li>
           </div>
         </ul>
