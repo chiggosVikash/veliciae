@@ -31,10 +31,7 @@ export const menuitems = [
         title: "My Profile",
         path: "/my-profile"
     },
-    {
-        title: "My Address",
-        path: "/my-address"
-    },
+    
     
 
 ];
