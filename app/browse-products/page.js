@@ -9,7 +9,8 @@ import ProductImage3 from "../assets/productimage3.png";
 import { Baskervville } from "next/font/google";
 import { FaFilter } from "react-icons/fa6";
 import SortingMenu from "../Components/SortingMenu";
-import Router, { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useProducts } from "../contexts/BrowseProductsContext";
 
 const baskervville = Baskervville({
   weight: "400",
@@ -18,6 +19,7 @@ const baskervville = Baskervville({
 
 const BrowseProductsPage = () => {
   const router = useRouter();
+  const {products,} = useProducts();
 
   const productsData = [
     {
@@ -99,6 +101,9 @@ const BrowseProductsPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [screenWidth]);
+
+  if(browseProductsState.products.length === 0){}
+ 
 
   return (
     <main className="md:pt-[calc(80px+55px)] pt-[80px] lg:px-12 px-4">
