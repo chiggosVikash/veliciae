@@ -9,28 +9,29 @@ import { useRouter } from "next/navigation";
 import useProductsStore from "../stores/productsStore";
 import Loader from "../Components/Loader";
 import Pagination from "../Components/Pagination";
+import { usePageStore } from "../stores/pageStore";
 const baskervville = Baskervville({
   weight: "400",
   subsets: ["latin"],
 });
 
 const BrowseProductsPage = () => {
-  let limit = 22;
+  let limit = 30;
   const router = useRouter();
   const { products, isLoading, errorMessage, getProducts } = useProductsStore();
-
+  const { page } = usePageStore();
   const [_, setScreenWidth] = useState(721);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
-  const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  
 
 
 
   const fetchProducts = useCallback(async (pageNum) => {
     const args = {
       filters: [],
-      reqCount: pageNum * limit,
+      reqCount: (pageNum - 1),
       limit: limit
     };
     const products = await getProducts(args);
