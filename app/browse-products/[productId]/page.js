@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import {Swiper , SwiperSlide} from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -14,9 +15,32 @@ import { MdElectricBolt } from "react-icons/md";
 import Loader from '../../Components/Loader';
 import ProductDetailsSection from '../../Components/ProductDetailsSection';
 import PriceBreakupSection from '../../Components/PriceBreakupSection';
+import { useProductStore } from '../../stores/productsStore';
 
 const ProductDetailsPage = () => {
-    const smallimages = [Image1, Image2, Image3, Image1, Image2];
+    const { product, isLoading, errorMessage, getProduct } = useProductStore();
+    const { productId } = useParams();
+
+
+    useEffect(() => {
+        getProduct(productId);
+    }, [productId, getProduct]);
+
+
+    
+
+    if(isLoading){
+        return <div className="flex justify-center items-center h-[50vh]"><Loader/></div>
+    }
+
+    if(errorMessage){
+        return <div className="flex justify-center items-center h-[50vh]"><h1>{errorMessage}</h1></div>
+    }
+    if(!product){
+        return <div className="flex justify-center items-center h-[50vh]"><h1>Product not found</h1></div>
+    }
+
+    const smallimages = product.productImages;
   return (
     <div className='md:pt-[calc(80px+55px)] pt-[80px] lg:px-12 px-4'>
       {/* Heading */}
@@ -62,29 +86,28 @@ const ProductDetailsPage = () => {
                            key={index}
                            className='m-2 sm:m-4'
                            >
-                        <img src={image.src} alt='product image' className='w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] object-cover'/>
+                        <img src={image} alt='product image' className='w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] object-cover'/>
                     </SwiperSlide>
                  })}
                  <div className="swiper-button-prev !w-6 !h-6 !text-onSurface !bg-accent after:!text-xs"></div>
                  <div className="swiper-button-next !w-6 !h-6 !text-onSurface !bg-accent after:!text-xs"></div>
               </Swiper>
               <div className='mt-4 sm:mt-0 ml-4 md:h-[50vh] lg:h-[70vh] 2xl:h-[50vh] h-[40vh]'>
-                  <img src={Image1.src} alt='product image' className='w-full  h-full object-cover'/>
+                  <img src={product.productImages[0]} alt='product image' className='w-full  h-full object-cover'/>
               </div>
           </div>
           {/* Product Basic Details */}
           <div className='w-full h-max py-4 rounded-md px-4 sm:px-6 '>
-             <p className='text-xs sm:text-sm text-gray-500 mb-1'>SKU ID: RING_EARR_DIA</p>
+             <p className='text-xs sm:text-sm text-gray-500 mb-1'>SKU ID: {product.sku}</p>
              <h1 className='text-2xl sm:text-3xl text-onPrimary font-semibold w-full sm:w-[80%]'>
-                Pihtara Jewels Curved Triangle Diamond Ring
+                {product.productName}
              </h1>
-             <p className='text-xs sm:text-sm text-gray-600 my-2'>From Veliciae Women Collection</p>
+             <p className='text-xs sm:text-sm text-gray-600 my-2'>From {product.collection ?? product.category}</p>
              <div className='h-0.5 w-full bg-accent my-4'></div>
-             <p className='text-xs sm:text-sm w-full sm:w-[90%] mb-4'>Pihtara Jewels Himalayan offers a stunning collection of handcrafted jewelry inspired
-             by the majestic Himalayas</p>
+             <p className='text-xs sm:text-sm w-full sm:w-[90%] mb-4'>{product.description}</p>
              <h1 >
-                <span className='text-xl sm:text-2xl text-onPrimary font-semibold mr-4'>₹25,000</span>
-                <span className='text-base sm:text-lg text-gray-500 line-through'> ₹5,000</span>
+                <span className='text-xl sm:text-2xl text-onPrimary font-semibold mr-4'>₹{product.sellingPrice}</span>
+                <span className='text-base sm:text-lg text-gray-500 line-through'> ₹{product.costPrice}</span>
              </h1>
              <p className='text-xs text-gray-500 my-2'>See full<span className='text-onPrimary'> Price Breakup.</span></p>
              
@@ -92,7 +115,7 @@ const ProductDetailsPage = () => {
             <div className='flex flex-wrap items-center my-4'>
                 <div className='flex flex-col mb-2 mr-2 sm:mb-0'>
                     <h1 className='text-xs mb-1 mx-2 '>Size</h1>
-                    <h2 className='border-[1px] border-gray-300 rounded-md py-2 px-4 w-28 text-xs sm:text-sm'>16.00 mm</h2>
+                    <h2 className='border-[1px] border-gray-300 rounded-md py-2 px-4 w-28 text-xs sm:text-sm'>{product.size} mm</h2>
                 </div>
                 <div className='flex flex-col ml-0 sm:ml-4 mb-2 sm:mb-0'>
                     <h1 className='text-xs mb-1 mx-2 '>Gross weight</h1>

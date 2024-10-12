@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { usePageStore } from "@/app/stores/pageStore";
 import useFilterOptionsStore from "@/app/stores/filterOptionsStore";
 export default function Pagination() {
-    const { page, count, getTotalProductsCount, setPage } = usePageStore();
+    const { page, count, getTotalProductsCount, setPage, pages} = usePageStore();
     const { filterOptions } = useFilterOptionsStore();
     useEffect(() => {
-        getTotalProductsCount(filterOptions);
+        getTotalProductsCount(filterOptions)
     }, [filterOptions]);
 
 
@@ -23,7 +23,7 @@ export default function Pagination() {
                 </button>
                 <span className="px-3 py-1">Page {page} of {Math.ceil(count / 30)}</span>
 
-                {Array.from({ length: Math.ceil(count / 30) }, (_, i) => i + 1).map((pageNum) => (
+                {pages.map((pageNum) => (
                     <button
                         onClick={() => setPage(pageNum)}
                         key={pageNum}
