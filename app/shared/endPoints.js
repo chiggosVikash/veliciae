@@ -1,3 +1,4 @@
 export const baseUrl = "http://localhost:3000/api";
 
-export const getProductsEnd = "products";
+export const productsEndPoint = `${baseUrl}/products`;
+export const browseEndPoint = `${productsEndPoint}/browse`;
