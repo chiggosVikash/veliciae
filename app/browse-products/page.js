@@ -1,42 +1,40 @@
 "use client";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import FilterMenuBar from "../Components/FilterMenuBar";
-import { FaTimes, FaFilter, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaTimes, FaFilter } from "react-icons/fa";
 import { Baskervville } from "next/font/google";
 import SortingMenu from "../Components/SortingMenu";
 import { useRouter } from "next/navigation";
 import useProductsStore from "../stores/productsStore";
 import Loader from "../Components/Loader";
 import Pagination from "../Components/Pagination";
+import { usePageStore } from "../stores/pageStore";
 const baskervville = Baskervville({
   weight: "400",
   subsets: ["latin"],
 });
 
 const BrowseProductsPage = () => {
-  let limit = 22;
+  let limit = 30;
   const router = useRouter();
   const { products, isLoading, errorMessage, getProducts } = useProductsStore();
-
+  const { page } = usePageStore();
   const [_, setScreenWidth] = useState(721);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  
 
 
 
   const fetchProducts = useCallback(async (pageNum) => {
     const args = {
       filters: [],
-      reqCount: pageNum * limit,
+      reqCount: (pageNum - 1),
       limit: limit
     };
-    const products = await getProducts(args);
-    if (products.length < limit) {
-      setHasMore(false);
-    }
+    await getProducts(args);
+   
   }, [getProducts]);
 
   useEffect(() => {
@@ -89,6 +87,11 @@ const BrowseProductsPage = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  if(isLoading){
+    console.log("isLoading", isLoading);
+    return (<div className="flex justify-center items-center h-[50vh]"> Fetching products...</div>)
+  }
+
   return (
     <main className="md:pt-[calc(80px+55px)] pt-[80px] lg:px-12 px-4">
       <div className="flex items-center py-2">
@@ -127,7 +130,7 @@ const BrowseProductsPage = () => {
               <div className="flex justify-center items-center h-full">
                 <h1 className="text-2xl font-semibold">{errorMessage}</h1>
               </div>
-            ) : products.length === 0 ? (
+            ) : products.length === 0 && isLoading == false ? (
               <div className="col-span-full flex justify-center items-center h-[50vh]">
                 <h1 className="text-2xl font-semibold">No products found</h1>
               </div>
@@ -135,7 +138,9 @@ const BrowseProductsPage = () => {
               products.map((product, index) => {
              
                   return (
-                    <div key={index}>
+                    <div 
+                      onClick={() => router.push(`/browse-products/${product.productId}`)}
+                    key={index}>
                       <img
                         src={product.productImages[0]}
                         alt={product.productName}
