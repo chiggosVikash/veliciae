@@ -5,19 +5,18 @@ import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ProductImage1 from '../assets/productimage1.png'
-
+import { useCartStore } from '../stores/cartStore';
+import { useSession } from 'next-auth/react';
+import Loader from '../Components/Loader';
 const AddToCart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  // const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
 
+  const {getCartItems,cartItems, isLoading, error} = useCartStore()
+  const {data:session,status} = useSession()
   useEffect(() => {
-    // In a real application, you'd fetch this data from an API or local storage
-    const mockCartItems = [
-      { id: 1, name: 'Diamond Ring', price: 25000, quantity: 1, image: '/path-to-image1.jpg' },
-      { id: 2, name: 'Gold Necklace', price: 50000, quantity: 1, image: '/path-to-image2.jpg' },
-    ];
-    setCartItems(mockCartItems);
-  }, []);
+    if(status === 'authenticated') getCartItems(session?.user?.email)
+  }, [status]);
 
   useEffect(() => {
     const newTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -35,6 +34,9 @@ const AddToCart = () => {
   const removeItem = (id) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
   };
+
+  if(isLoading) return <div className='flex justify-center items-center h-screen'><Loader /></div>
+  if(error) return <div className='flex justify-center items-center h-screen'>Error: {error}</div>
 
   return (
     <motion.div 

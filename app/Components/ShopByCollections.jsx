@@ -3,6 +3,7 @@ import {Baskervville ,Satisfy} from 'next/font/google';
 import EngagementRing from '../assets/collections/engagement-ring.png';
 import WeddingRing from '../assets/collections/wedding-ring.png';
 import Necklace from '../assets/collections/fine-jewellery.png';
+import { useRouter } from 'next/navigation';
 
 const baskervville = Baskervville({
     weight: "400",
@@ -14,6 +15,7 @@ const satisfy = Satisfy({
 
 
 const ShopByCollections = () => {
+    const router = useRouter();
     const collections = [
         {
             title: 'Engagement',
@@ -53,6 +55,9 @@ const ShopByCollections = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 mt-4  md:grid-cols-2 lg:grid-cols-3 gap-12">
         {collections.map((collection, index) => (
           <div
+            onClick={()=>{
+                router.push(`/browse-products`)
+            }}
             key={index}
             className={`${collection.translateY} bg-white hover:scale-105 transition duration-700 p-6  md:my-0  rounded-2xl shadow-lg relative hover:shadow-xl `}
           >
