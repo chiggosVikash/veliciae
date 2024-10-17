@@ -17,23 +17,23 @@ const filtersData = [
   {
     title: "Category",
     items: [
-      { id: 1, name: "Necklaces" },
-      { id: 2, name: "Rings" },
-      { id: 3, name: "Bracelets" },
-      { id: 4, name: "Earrings" },
-      { id: 5, name: "Anklets" },
-      { id: 6, name: "Bangles" },
-    ],
-  },
-  {
-    title: "Material",
-    items: [
       { id: 1, name: "Gold" },
       { id: 2, name: "Silver" },
       { id: 3, name: "Platinum" },
       { id: 4, name: "Diamond" },
       { id: 5, name: "Pearl" },
       { id: 6, name: "Gemstone" },
+    ],
+  },
+  {
+    title: "Material",
+    items: [
+      { id: 1, name: "18K" },
+      { id: 2, name: "14K" },
+      { id: 3, name: "10K" },
+      { id: 4, name: "9K" },
+      { id: 5, name: "8K" },
+      { id: 6, name: "7K" },
     ],
   },
   {
@@ -60,12 +60,12 @@ const filtersData = [
   {
     title: "Collections",
     items: [
-      { id: 1, name: "Wedding" },
-      { id: 2, name: "Casual Wear" },
-      { id: 3, name: "Office Wear" },
-      { id: 4, name: "Party Wear" },
-      { id: 5, name: "Traditional" },
-      { id: 6, name: "Modern" },
+      { id: 1, name: "Anniversary" },
+      { id: 2, name: "Birthday" },
+      { id: 3, name: "Wedding" },
+      { id: 4, name: "Festival" },
+      { id: 5, name: "Daily Wear" },
+      { id: 6, name: "Traditional" },
     ],
   },
   {
@@ -75,7 +75,7 @@ const filtersData = [
       { id: 2, name: "Birthday" },
       { id: 3, name: "Wedding" },
       { id: 4, name: "Festival" },
-      { id: 5, name: "Daily Wear" },
+     
     ],
   },
 ];

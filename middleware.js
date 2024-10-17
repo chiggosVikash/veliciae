@@ -5,6 +5,10 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth
   const { pathname } = req.nextUrl
 
+  if(pathname.startsWith("/signup") && isLoggedIn){
+    return NextResponse.redirect(new URL("/",req.url))
+  }
+
   if (pathname.startsWith("/signin") && isLoggedIn) {
     return NextResponse.redirect(new URL("/", req.url))
   }
@@ -15,5 +19,6 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ['/checkout/:path*','/my-orders/:path*','/my-profile/:path*','/add-to-cart/:path*','/orders-details/:path*','/wishlist/:path*'],
+  matcher: ['/checkout/:path*','/my-orders/:path*','/my-profile/:path*',
+    '/add-to-cart/:path*','/orders-details/:path*','/wishlist/:path*','/signup/:path*'],
 }

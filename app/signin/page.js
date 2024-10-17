@@ -1,13 +1,56 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import SignupJewelry from '../assets/signup-jewelry.jpg'
 import Logo from '../assets/velciae_logo.png';
 import { FaGoogle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
+  const router = useRouter();
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn("google", { callbackUrl: "/", redirect: false });
+      if (result.error) {
+        toast.error("Failed to sign in with Google");
+      } else {
+        toast.success("Successfully signed in with Google");
+        router.push("/"); // Redirect to home page or dashboard
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred during sign in");
+    }
+  }
+
+  const handlePhoneSignIn = async (e) => {
+    e.preventDefault();
+    // Implement phone number sign in logic here
+    // For example:
+    try {
+      const result = await signIn("credentials", {
+        phoneNumber,
+        redirect: false,
+      });
+      if (result.error) {
+        toast.error("Invalid phone number or OTP");
+      } else {
+        toast.success("Successfully signed in");
+        router.push("/"); // Redirect to home page or dashboard
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred during sign in");
+    }
+  }
+
   return (
-    <div className="md:pt-[calc(100px+55px)] pt-[100px]  flex items-center justify-center min-h-screen bg-gradient-to-r from-[#f7f1e3] to-[#f0e6d2] p-4">
+    <div className="md:pt-[calc(100px+55px)] pt-[100px] flex items-center justify-center min-h-screen bg-gradient-to-r from-[#f7f1e3] to-[#f0e6d2] p-4">
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +73,7 @@ const Login = () => {
         <div className="w-full md:w-1/2 p-8 md:p-12 bg-white">
           <img src={Logo.src} alt="Veliciae Logo" className="w-36 h-32 mx-auto mb-6" />
           <h2 className="text-3xl font-semibold mb-6 text-[#bc8e56] text-center">Sign In</h2>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handlePhoneSignIn}>
             <div className="flex">
               <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
                 +91
@@ -39,6 +82,8 @@ const Login = () => {
                 type="tel"
                 className="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 block flex-1 min-w-0 w-full text-sm p-2.5 focus:ring-[#bc8e56] focus:border-[#bc8e56]"
                 placeholder="Enter mobile number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div className="flex items-center">
@@ -66,6 +111,7 @@ const Login = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="w-full p-3 flex items-center justify-center bg-white border border-gray-300 rounded-md hover:shadow-md transition duration-300"
+            onClick={handleGoogleSignIn}
           >
             <FaGoogle className="w-5 h-5 mr-2 text-[#bc8e56]" />
             Continue with Google
@@ -74,7 +120,7 @@ const Login = () => {
             By continuing, I agree to the <a href="#" className="text-[#bc8e56] hover:underline">Terms of Use</a> & <a href="#" className="text-[#bc8e56] hover:underline">Privacy Policy</a>.
           </p>
           <p className="mt-4 text-sm text-center">
-            Don't have an account? <a href="#" className="text-[#bc8e56] hover:underline">Sign up</a>
+            Don't have an account? <Link href="/signup" className="text-[#bc8e56] hover:underline">Sign up</Link>
           </p>
         </div>
       </motion.div>

@@ -1,10 +1,41 @@
 'use client';
 import SignupJewelry from '../assets/signup-jewelry.jpg';
-import React from 'react';
+import React,{useEffect} from 'react';
 import { motion } from 'framer-motion';
 import { FaGoogle } from 'react-icons/fa';
-
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useUserStore } from '../stores/userStore';
+import {useSession} from 'next-auth/react'
+import toast from 'react-hot-toast';
 const SignUp = () => {
+  const router = useRouter()
+  const {saveUser} = useUserStore()
+  const {data:session,status} = useSession()
+  useEffect(()=>{
+    if(status === "authenticated"){
+      try{
+        saveUser(session.user)
+      }catch(error){
+        toast.error(error.message)
+      }
+      
+    }
+  },[session])
+  
+  const handleGoogleSignUp = async()=>{
+   
+    try{
+      const res = await signIn("google",)
+      if(res.error){
+        toast.error(res.error)
+        return;
+      }
+
+    }catch(error){
+      toast.error(error.message)
+    }
+  }
   return (
     <div className="md:pt-[calc(80px+55px)] pt-[80px] flex items-center justify-center min-h-screen bg-gradient-to-r from-[#f7f1e3] to-[#f0e6d2] p-4">
       <motion.div 
@@ -59,6 +90,7 @@ const SignUp = () => {
             </motion.button>
           </form>
           <motion.button 
+          onClick={handleGoogleSignUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="w-full mt-4 p-3 flex items-center justify-center bg-white border border-gray-300 rounded-md hover:shadow-md transition duration-300"
@@ -69,6 +101,9 @@ const SignUp = () => {
           <div className="mt-6 flex items-center justify-center">
             <span className="text-sm text-gray-600">Already have an account?</span>
             <motion.button
+            onClick={()=>{
+              router.push("/signin")
+            }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="text-sm text-onPrimary font-medium hover:underline mx-4"

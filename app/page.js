@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import CaraoselSlider from './Components/CaraoselSlider'
 import ShopByCategorySection from './Components/ShopByCategorySection'
@@ -8,6 +9,7 @@ import ShopByGenderSection from './Components/ShopByGenderSection'
 
 
 const page = () => {
+
   return (
     <div>
       <CaraoselSlider />
