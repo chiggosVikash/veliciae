@@ -9,20 +9,17 @@ import { useCartStore } from '../stores/cartStore';
 import { useSession } from 'next-auth/react';
 import Loader from '../Components/Loader';
 const AddToCart = () => {
-  // const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  const {getCartItems,cartItems, isLoading, error} = useCartStore()
+  const {getCartItems,cartItems, isLoading, error,cartTotal} = useCartStore()
   const {data:session,status} = useSession()
+  let email = session?.user?.email
   useEffect(() => {
-    if(status === 'authenticated') getCartItems(session?.user?.email)
+    if(status === 'authenticated') {
+      if(!email) email = session?.user?.email
+      getCartItems(email)
+    }
   }, [status]);
 
-  useEffect(() => {
-    const newTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    setTotal(newTotal);
-  }, [cartItems]);
-
+ 
   const updateQuantity = (id, change) => {
     setCartItems(prevItems =>
       prevItems.map(item =>
@@ -35,9 +32,11 @@ const AddToCart = () => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
-  if(isLoading) return <div className='flex justify-center items-center h-screen'><Loader /></div>
+  if(isLoading || status === 'loading') return <div className='flex justify-center items-center h-screen'><Loader /></div>
   if(error) return <div className='flex justify-center items-center h-screen'>Error: {error}</div>
 
+  console.log("Cart items")
+  console.log(cartItems)
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -95,7 +94,7 @@ const AddToCart = () => {
               </div>
             ))}
             <div className="border-t border-accent mt-4 pt-4">
-              <p className="text-xl font-semibold text-onPrimary mb-6">Total: ₹{total.toLocaleString()}</p>
+              <p className="text-xl font-semibold text-onPrimary mb-6">Total: ₹{cartTotal.toLocaleString()}</p>
             </div>
             <Link href="/checkout" className="bg-accent text-onPrimary px-8 py-3 rounded-full hover:bg-opacity-90 transition duration-300 text-center text-lg font-semibold shadow-md w-full block">
               Proceed to Checkout
@@ -105,7 +104,7 @@ const AddToCart = () => {
       )}
       <div className="fixed bottom-0 left-0 right-0 bg-surface p-4 shadow-lg md:hidden">
         <div className="flex justify-between items-center mb-2">
-          <p className="text-xl font-semibold text-onPrimary">Total: ₹{total.toLocaleString()}</p>
+          <p className="text-xl font-semibold text-onPrimary">Total: ₹{cartTotal.toLocaleString()}</p>
           <Link href="/checkout" className="bg-accent text-onPrimary px-6 py-2 rounded-full hover:bg-opacity-90 transition duration-300 text-center text-base font-semibold shadow-md">
             Checkout
           </Link>
