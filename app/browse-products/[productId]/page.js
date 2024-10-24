@@ -19,7 +19,7 @@ import toast from 'react-hot-toast';
 const ProductDetailsPage = () => {
     const { addToCart } = useCartStore();
     const { product, isLoading, errorMessage, getProduct } = useProductStore();
-    const { data:session } = useSession();
+    const { data:session, status } = useSession();
     const { productId } = useParams();
     const [selectedImage, setSelectedImage] = useState(null);
     const [isHovering, setIsHovering] = useState(false);
@@ -146,7 +146,11 @@ const ProductDetailsPage = () => {
                     </div>
                     <div className='flex flex-col sm:flex-row items-center my-4'>
                         <button 
-                        onClick = {()=>{
+                        onClick = {
+                            
+                            status === "authenticated" ?
+                            
+                            ()=>{
                             const cartProduct = {
                                 productId:product._id,
                                 email:session?.user?.email ?? "NA",
@@ -160,7 +164,7 @@ const ProductDetailsPage = () => {
                             }).catch((error)=>{
                                 toast.error("Error adding product to cart")
                             })
-                        }}
+                        }:null}
                         className='bg-accent py-2 px-4 w-full sm:w-[40%] hover:scale-105 duration-500 transition rounded-md mb-2 sm:mb-0 sm:mr-12'> <FaCartShopping className='inline mr-3'/>Add to Cart</button>
                         <button className='bg-onPrimary text-white py-2 px-6 w-full sm:w-[40%] hover:scale-105 duration-500 transition rounded-md'><MdElectricBolt className='inline mr-3'/>Buy Now</button>
                     </div>
