@@ -39,6 +39,10 @@ const Footer = () => {
             <li className="mx-2 hover:text-secondary cursor-pointer py-1">
               <Link href="/">Contact Us</Link>
             </li>
+
+            <li className="mx-2 hover:text-secondary cursor-pointer py-1">
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </li>
             <li className="mx-2 hover:text-secondary cursor-pointer py-1">
               <Link href="/">
                 About Us
