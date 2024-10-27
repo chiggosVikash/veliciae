@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --onSurface: #333333;
+  --primary: #F5CAC3;
+  --onPrimary: #4D0421 ;
+  --surface: #f1f5fa;
+  --secondary:rgb(105, 197, 185);
+  --accent: #DBD9FA;
+  --navBarPadding: 100px;
+  --navBarTop: 100px;
+
+}
+ body {
+  @apply bg-surface text-onSurface;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
