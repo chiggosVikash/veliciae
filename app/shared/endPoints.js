@@ -5,7 +5,8 @@ export const browseEndPoint = `${productsEndPoint}/browse`;
 export const productsCountEndPoint = `${browseEndPoint}`;
 
 /// user endoints
-export const userEndPoints = `${baseUrl}/user`;
+export const userEndPoints = `${baseUrl}/
+`;
 
 /// cart end points
 export const cartEndPoints = `${baseUrl}/cart`;

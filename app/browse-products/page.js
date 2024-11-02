@@ -121,7 +121,7 @@ const BrowseProductsPage = () => {
           </div>:null}
 
           {/* products view */}
-          <div className="grid grid-cols-2 lg:grid-cols-3  2xl:grid-cols-5 md:gap-8  gap-2">
+          <div className="grid grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 md:gap-8  gap-2">
             {isLoading ? (
               <div className="flex justify-center items-center h-full">
                 <Loader />
@@ -139,6 +139,7 @@ const BrowseProductsPage = () => {
              
                   return (
                     <div 
+                        className="border border-gray-300 p-2 rounded-xl group cursor-pointer hover:bg-white"
                       onClick={() => router.push(`/browse-products/${product.productId}`)}
                     key={index}>
                       <img

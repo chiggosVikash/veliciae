@@ -39,7 +39,7 @@ const ShopByGenderSection = () => {
         <h1 className='md:text-5xl text-3xl  md:mx-6 mx-3'>Shop By Gender</h1>
         <div className='w-[25%] h-0.5 bg-blue-gray-300'></div>
       </div>
-
+      <div className='max-w-7xl mx-auto'>
       <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
         {
             genders.map((gender, index) => {
@@ -54,6 +54,7 @@ const ShopByGenderSection = () => {
                 );
             })
         }
+      </div>
       </div>
       
     </div>

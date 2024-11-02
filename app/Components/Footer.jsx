@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className=" overflow-x-hidden w-full h-max bg-gray-900 pl-12 pr-12 mt-12 py-8 text-gray-300 ">
-      <div className="grid md:grid-cols-3  grid-cols-1gap-8">
+    <footer className=" overflow-x-hidden w-full md:h-[42vh] h-max bg-gray-900 pl-12 pr-12 mt-12 py-8 text-gray-300 ">
+      <div className="grid md:grid-cols-3  grid-cols-1 gap-8">
         <div className="mb-8 ">
           <div className="flex items-center justify-start">
             <img

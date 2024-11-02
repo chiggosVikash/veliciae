@@ -36,7 +36,8 @@ const LatestProductsSection = () => {
 
     ];
   return (
-    <div className=' relative w-full lg:h-screen h-max bg-primary lg:px-12 px-4 lg:py-12 py-4'>
+    <div className='bg-primary '>
+    <div className=' relative w-full  lg:h-screen 2xl:h-[70vh] h-max max-w-7xl mx-auto lg:px-12 px-4 lg:py-12 py-4'>
       <div className={`${baskervville.className} w-full text-left` }>
         <h1 className='md:text-5xl text-3xl mb-4 text-onPrimary'>Our Latest Products</h1>
         <p className=''>Discover the Newest Sparkles, Freshly Arrived for You!
@@ -58,9 +59,10 @@ const LatestProductsSection = () => {
             })
           }
       </div>
-      <button className='md:absolute md:mt-0 mt-4 hover:bg-onPrimary hover:text-primary bg-accent text-onPrimary hover:translate-x-2 transition duration-500 py-3 px-12 rounded-md right-20 bottom-10'>
+      <button className='md:absolute md:mt-0 mt-4 hover:bg-onPrimary hover:text-primary bg-gray-50 text-onPrimary hover:translate-x-2 transition duration-500 py-3 px-12 rounded-md right-20 bottom-10'>
         Explore More
       </button>
+    </div>
     </div>
   )
 }
