@@ -5,26 +5,22 @@ import { motion } from 'framer-motion';
 import { FaGoogle } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { useUserStore } from '../stores/userStore';
-import {useSession} from 'next-auth/react'
 import toast from 'react-hot-toast';
 const SignUp = () => {
   const router = useRouter()
-  const {saveUser} = useUserStore()
-  const {data:session,status} = useSession()
-  useEffect(()=>{
-    if(status === "authenticated"){
-      try{
-        saveUser(session.user)
-      }catch(error){
-        toast.error(error.message)
-      }
+  // useEffect(()=>{
+  //   if(status === "authenticated"){
+  //     try{
+  //       saveUser(session.user)
+  //     }catch(error){
+  //       console.log(error)
+  //       toast.error(error.message)
+  //     }
       
-    }
-  },[session])
+  //   }
+  // },[session])
   
   const handleGoogleSignUp = async()=>{
-   
     try{
       const res = await signIn("google",)
       if(res.error){
@@ -33,6 +29,7 @@ const SignUp = () => {
       }
 
     }catch(error){
+      console.log(error)
       toast.error(error.message)
     }
   }

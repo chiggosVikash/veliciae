@@ -2,7 +2,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const ProductDetailsSection = () => {
+const ProductDetailsSection = (props) => {
+  const details = props.props;
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -18,13 +19,13 @@ const ProductDetailsSection = () => {
         >
           <h3 className="text-lg font-medium text-onPrimary mb-3">Jewellery Specifications</h3>
           <ul className="space-y-2 text-gray-700">
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Metal: 18K White Gold</li>
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Diamond Quality: VS Clarity, F-G Color</li>
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Total Carat Weight: 0.73 carats</li>
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Setting Type: Prong Setting</li>
+            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Category: {details.category && details.category.toUpperCase()}</li>
+            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>{details.materialSpecs.length > 0 ? details.materialSpecs[0].materialType : ""} Quality: {details.materialSpecs.length > 0 ? details.materialSpecs[0].quality : ""}</li>
+            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Material Weight: {details.materialSpecs.length > 0 ? details.materialSpecs[0].materialWeight : ""}</li>
+            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Collection : {details.productCollection}</li>
           </ul>
         </motion.div>
-        <motion.div 
+        {/* <motion.div 
           whileHover={{ scale: 1.05 }}
           className="bg-surface bg-opacity-10 p-4 rounded-lg"
         >
@@ -35,17 +36,27 @@ const ProductDetailsSection = () => {
             <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Finish: High Polish</li>
             <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Gemstone Shape: Round Brilliant Cut</li>
           </ul>
-        </motion.div>
+        </motion.div> */}
         <motion.div 
           whileHover={{ scale: 1.05 }}
           className="bg-surface bg-opacity-10 p-4 rounded-lg"
         >
           <h3 className="text-lg font-medium text-onPrimary mb-3">Care Instructions</h3>
           <ul className="space-y-2 text-gray-700">
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Clean with a soft, lint-free cloth</li>
+            {
+              details.careInstructions.length  === 0 ? <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>No care instructions available</li> : ""
+            }
+            {
+              details.careInstructions.map((instruction, index) => {
+                return (
+                  <li key={index} className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>{instruction}</li>
+                )
+              })
+            }
+            {/* <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Clean with a soft, lint-free cloth</li>
             <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Avoid exposure to harsh chemicals</li>
             <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Store in a cool, dry place</li>
-            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Professional cleaning recommended every 6 months</li>
+            <li className="text-sm flex items-center"><span className="w-1 h-1 bg-secondary rounded-full mr-2"></span>Professional cleaning recommended every 6 months</li> */}
           </ul>
         </motion.div>
       </div>
@@ -55,7 +66,7 @@ const ProductDetailsSection = () => {
         transition={{ delay: 0.3, duration: 0.5 }}
         className="mt-4"
       >
-        <h3 className="text-xl font-medium text-onPrimary mb-3">Product Description</h3>
+        {/* <h3 className="text-xl font-medium text-onPrimary mb-3">Product Description</h3>
         <p className="text-gray-700 text-sm leading-relaxed">
           This exquisite Curved Triangle Diamond Ring from Pihtara Jewels Himalayan collection 
           showcases the perfect blend of modern design and timeless elegance. Crafted with 
@@ -63,7 +74,7 @@ const ProductDetailsSection = () => {
           representation of the majestic Himalayas. The unique curved triangle design 
           symbolizes the peaks of the mountains, making it a truly special piece for any 
           jewelry enthusiast.
-        </p>
+        </p> */}
       </motion.div>
     </motion.div>
   )
