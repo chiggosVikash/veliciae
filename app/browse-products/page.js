@@ -151,8 +151,8 @@ const BrowseProductsPage = () => {
                         {product.productName}
                       </h1>
                       <div>
-                        <span className="sm:text-xl text-sm text-onPrimary font-semibold mr-3">{product.sellingPrice}</span>
-                        <span className="line-through sm:text-sm text-xs text-gray-500">{product.costPrice}</span>
+                        <span className="sm:text-xl text-sm text-onPrimary font-semibold mr-3">{"₹"}{product.sellingPrice}</span>
+                        <span className="line-through sm:text-sm text-xs text-gray-500">{"₹"} {product.costPrice}</span>
                       </div>
                       <h2 className="py-0.5 my-1 text-xs px-2 bg-accent text-center w-max rounded-md">
                         {product.discount} Off</h2>

@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Image1 from "../assets/productimage1.png";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useCartStore } from "../stores/cartStore";
+import { useWishlistStore } from "../stores/wishlistStore";
 import { Spinner } from "@material-tailwind/react";
 
 export default function Cart() {
@@ -26,6 +27,7 @@ export default function Cart() {
     subTotal,
     deleteCartItem
   } = useCartStore();
+  const {  addToWishlist } = useWishlistStore();
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -151,7 +153,23 @@ export default function Cart() {
                           </svg>
                           Remove from cart
                         </button>
-                        <button className="text-gray-600 hover:text-secondary text-sm flex items-center">
+                        <button 
+                        
+                        onClick={()=>{
+                          const cartProduct = {
+                            productId: item.product._id,
+                            email: session?.user?.email ?? "NA",
+                            price: item.product.sellingPrice,
+                            quantity: item.quantity,
+                            totalPrice: item.product.sellingPrice * item.quantity,
+                          };
+                          addToWishlist(cartProduct).then(()=>{
+                            deleteCartItem(item._id,session.user.email)
+                          })
+                          
+                        }}
+                        
+                        className="text-gray-600 hover:text-secondary text-sm flex items-center">
                           <svg
                             className="w-3 h-3 mr-1"
                             fill="none"

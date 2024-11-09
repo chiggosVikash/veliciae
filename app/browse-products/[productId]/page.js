@@ -14,6 +14,7 @@ import ProductDetailsSection from "../../Components/ProductDetailsSection";
 import PriceBreakupSection from "../../Components/PriceBreakupSection";
 import { useProductStore } from "../../stores/productsStore";
 import { useCartStore } from "../../stores/cartStore";
+import { useWishlistStore } from "@/app/stores/wishlistStore";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 const ProductDetailsPage = () => {
@@ -24,6 +25,8 @@ const ProductDetailsPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
+  const { addToWishlist } = useWishlistStore();
 
   const handleQuantityChange = (type) => {
     if (type === "increment") {
@@ -218,7 +221,20 @@ const ProductDetailsPage = () => {
               <FaCartShopping className="inline mr-3" />
               Add to Cart
             </button>
-            <button className="bg-onPrimary text-white py-2 px-6 w-full sm:w-[40%] hover:scale-105 duration-500 transition rounded-md">
+            <button 
+            
+            onClick={()=>{
+              const wishlistProduct = {
+                productId: product._id,
+                email: session?.user?.email ?? "NA",
+                price: product.sellingPrice,
+                quantity: quantity,
+                totalPrice: product.sellingPrice * quantity,
+              };
+              addToWishlist(wishlistProduct)
+            }}
+            
+            className="bg-onPrimary text-white py-2 px-6 w-full sm:w-[40%] hover:scale-105 duration-500 transition rounded-md">
               <MdElectricBolt className="inline mr-3" />
               Add To Wishlist
             </button>

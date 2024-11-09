@@ -1,7 +1,7 @@
-'use client';
+"use client";
 import React from "react";
 import Logo from "../assets/velciae_logo.png";
-import Link from 'next/link';
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -16,12 +16,12 @@ const Footer = () => {
             />
             <h1 className="text-2xl font-semibold uppercase">Veliciae</h1>
           </div>
-          <p className="mt-2">
-            The Quest For Luxury Ends Here!
-          </p>
-          <p className="mt-4">© 2024 Veliciae  | All Rights Reserved</p>
+          <p className="mt-2">The Quest For Luxury Ends Here!</p>
+          <p className="mt-4">© 2024 Veliciae | All Rights Reserved</p>
 
-          <a target="_blank" href= "https://ygsd.in"><p className="mt-4">Developed By ygsd.in</p></a>
+          <a target="_blank" href="https://ygsd.in">
+            <p className="mt-4">Developed By: Vikash Kumar</p>
+          </a>
         </div>
         {/* Quick Links Section */}
         <div className="flex flex-col justify-start md:items-center items-start mb-8">
@@ -44,27 +44,26 @@ const Footer = () => {
               <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
             <li className="mx-2 hover:text-secondary cursor-pointer py-1">
-              <Link href="/">
-                About Us
-              </Link>
+              <Link href="/">About Us</Link>
             </li>
           </ul>
         </div>
         <div className="flex flex-col items-left mb-8">
           <h1 className="text-xl text-primary">Contacts</h1>
           <div className="mt-2">
-          <p className="mx-2 py-1  ">Phone: +91 8336019288</p>
-          <p className="mx-2 py-1">Email: info@veliciae.in </p>
-          <p className="mx-2 py-1">Address: XYZ Road, ABC City, 12345
-                {/* <br />
+            <p className="mx-2 py-1  ">Phone: +91 8336019288</p>
+            <p className="mx-2 py-1">Email: info@veliciae.in </p>
+            <p className="mx-2 py-1">
+              Address: Veliciae Jewelry Pvt. Ltd. 123, 4th Street, New Market,
+              Kolkata, West Bengal, 700013, India
+              {/* <br />
                 Hotel DRS Deluxe
                 <br />
                 Main Road, Purani Bazar
                 <br />
                 Lakhisarai-Bihar 811311 (India) */}
-                </p>
+            </p>
           </div>
-          
         </div>
       </div>
     </footer>

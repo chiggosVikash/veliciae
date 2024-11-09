@@ -4,6 +4,7 @@ import { Baskervville,Pacifico,Satisfy } from 'next/font/google';
 import ModernDesign from '../assets/latestproducts/modern-design.png';
 import TrendingEarrings from '../assets/latestproducts/trending-earrings.png';
 import Sparkling from '../assets/latestproducts/sparking.png';
+import { useRouter } from 'next/navigation';
 
 const baskervville = Baskervville({
     weight:"400",
@@ -15,6 +16,7 @@ const satisfy = Satisfy({
 });
 
 const LatestProductsSection = () => {
+    const router = useRouter();
     const products = [
         {
             title:"Modern Designs",
@@ -48,6 +50,8 @@ const LatestProductsSection = () => {
             products.map((product, index) => {
                 return (
                     <div  
+                      onClick={() => router.push('/browse-products')}
+                      key={index}
                       style={{backgroundImage:`url(${product.image})`}}
                       className={`${product.translateY} h-[17rem] hover:scale-105 transition duration-500 w-full bg-contain bg-center bg-no-repeat `}>
                       <div className={`h-[16rem] bg-opacity-75 flex flex-col justify-between  items-center p-4`}>
@@ -59,7 +63,9 @@ const LatestProductsSection = () => {
             })
           }
       </div>
-      <button className='md:absolute md:mt-0 mt-4 hover:bg-onPrimary hover:text-primary bg-gray-50 text-onPrimary hover:translate-x-2 transition duration-500 py-3 px-12 rounded-md right-20 bottom-10'>
+      <button 
+      onClick={() => router.push('/browse-products')}
+      className='md:absolute md:mt-0 mt-4 hover:bg-onPrimary hover:text-primary bg-gray-50 text-onPrimary hover:translate-x-2 transition duration-500 py-3 px-12 rounded-md right-20 bottom-10'>
         Explore More
       </button>
     </div>
