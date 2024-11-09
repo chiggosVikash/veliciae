@@ -4,38 +4,23 @@ import { motion } from 'framer-motion';
 import { FaUser, FaShoppingBag, FaMapMarkerAlt, FaHeart, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
 import PageHeader from '../Components/PageHeader';
 import PersonalInfo from '../Components/PersonalInfo';
-import AddressView from '../Components/AddressView.jsx';
+import AddAddress from '../Components/AddAddress';
 import { useUserStore } from '../stores/userStore';
 import { Toaster } from 'react-hot-toast';
+import MyOrder from '../Components/MyOrder';
+import {useRouter} from 'next/navigation';
+
 
 const MyProfile = () => {
+  const router = useRouter();
+
   const [activeSection, setActiveSection] = useState('personal');
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const { logout } = useUserStore();
 
-  const Orders = () => (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">My Orders</h2>
-      {/* Add order history component here */}
-      <p>Your order history will be displayed here.</p>
-    </div>
-  );
+ 
 
-  const Wishlist = () => (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">My Wishlist</h2>
-      {/* Add wishlist component here */}
-      <p>Your wishlist items will be displayed here.</p>
-    </div>
-  );
-
-  const Cart = () => (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">My Cart</h2>
-      {/* Add cart component here */}
-      <p>Your cart items will be displayed here.</p>
-    </div>
-  );
+ 
 
   const handleLogout = () => {
     setShowLogoutConfirmation(true);
@@ -48,12 +33,27 @@ const MyProfile = () => {
 
   const menuItems = [
     { icon: FaUser, text: 'Personal Information', section: 'personal', component: PersonalInfo },
-    { icon: FaShoppingBag, text: 'My Orders', section: 'orders', component: Orders },
-    { icon: FaMapMarkerAlt, text: 'My Address', section: 'address', component: AddressView},
-    { icon: FaHeart, text: 'Wishlist', section: 'wishlist', component: Wishlist },
-    { icon: FaShoppingCart, text: 'My Cart', section: 'cart', component: Cart },
+    { icon: FaShoppingBag, text: 'My Orders', section: 'orders', component: MyOrder },
+    { icon: FaMapMarkerAlt, text: 'My Address', section: 'address', component: AddAddress},
+    { icon: FaHeart, text: 'Wishlist', section: 'wishlist', },
+    { icon: FaShoppingCart, text: 'My Cart', section: 'cart',  },
     { icon: FaSignOutAlt, text: 'Logout', section: 'logout', onClick: handleLogout },
   ];
+
+  const handleMenuItemClick = (item) => {
+    if (item.section === 'wishlist') {
+      router.push('/wishlist');
+    } else if (item.section === 'cart') {
+      router.push('/add-to-cart');
+    }
+    else if(item.onClick){
+      item.onClick();
+    } 
+    else {
+      setActiveSection(item.section);
+    }
+  };
+
 
   return (
     <motion.div 
@@ -75,7 +75,7 @@ const MyProfile = () => {
             {menuItems.map((item, index) => (
               <li key={index}>
                 <button
-                  onClick={() => item.onClick ? item.onClick() : setActiveSection(item.section)}
+                  onClick={() => handleMenuItemClick(item)}
                   className={`w-full flex items-center p-3 rounded-lg transition duration-300 ${
                     activeSection === item.section ? 'bg-accent text-onPrimary' : 'hover:bg-accent hover:bg-opacity-10'
                   }`}
@@ -113,13 +113,13 @@ const MyProfile = () => {
             <div className="mt-4 flex justify-end space-x-2">
               <button
                 onClick={() => setShowLogoutConfirmation(false)}
-                className="px-4 py-2 bg-gray-200 rounded-lg"
+                className="cursor-pointer px-4 py-2 bg-gray-200 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmLogout}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                className="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg"
               >
                 Logout
               </button>

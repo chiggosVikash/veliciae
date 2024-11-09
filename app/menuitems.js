@@ -16,20 +16,12 @@ export const menuitems = [
         path: "/contact-us" 
     },
     {
-        title: "My Orders",
-        path: "/my-orders"
-    },
-    {
-        title: "Order Details",
-        path: "/orders-details"
-    },
-    {
-        title: "Checkout",
-        path: "/checkout"
-    },
-    {
         title: "My Profile",
         path: "/my-profile"
+    },
+    {
+        title: "My Orders",
+        path: "/my-orders"
     },
     
     

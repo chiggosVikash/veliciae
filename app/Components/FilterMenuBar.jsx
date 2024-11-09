@@ -17,12 +17,12 @@ const filtersData = [
   {
     title: "Category",
     items: [
-      { id: 1, name: "Gold" },
-      { id: 2, name: "Silver" },
-      { id: 3, name: "Platinum" },
-      { id: 4, name: "Diamond" },
-      { id: 5, name: "Pearl" },
-      { id: 6, name: "Gemstone" },
+      { id: 1, name: "Gold", value: "gold" },
+      { id: 2, name: "Silver" , value: "silver"},
+      { id: 3, name: "Platinum" , value: "platinum"},
+      { id: 4, name: "Diamond" , value: "diamond"},
+      { id: 5, name: "Pearl" , value: "pearl"},
+      { id: 6, name: "Gemstone", value: "gemstone" },
     ],
   },
   {
@@ -49,32 +49,32 @@ const filtersData = [
   {
     title: "Stone Type",
     items: [
-      { id: 1, name: "Diamond" },
-      { id: 2, name: "Ruby" },
-      { id: 3, name: "Emerald" },
-      { id: 4, name: "Sapphire" },
-      { id: 5, name: "Pearl" },
-      { id: 6, name: "Amethyst" },
+      { id: 1, name: "Diamond" , value: "diamond"},
+      { id: 2, name: "Ruby" , value: "ruby"},
+      { id: 3, name: "Emerald" , value: "emerald"},
+      { id: 4, name: "Sapphire" , value: "sapphire"},
+      { id: 5, name: "Pearl" , value: "pearl"},
+      { id: 6, name: "Amethyst", value: "amethyst" },
     ],
   },
   {
     title: "Collections",
     items: [
-      { id: 1, name: "Anniversary" },
-      { id: 2, name: "Birthday" },
-      { id: 3, name: "Wedding" },
-      { id: 4, name: "Festival" },
-      { id: 5, name: "Daily Wear" },
-      { id: 6, name: "Traditional" },
+      { id: 1, name: "Anniversary" , value: "anniversary"},
+      { id: 2, name: "Birthday" , value: "birthday"},
+      { id: 3, name: "Wedding" , value: "wedding"},
+      { id: 4, name: "Festival" , value: "festival"},
+      { id: 5, name: "Daily Wear" , value: "dailywear"},
+      { id: 6, name: "Traditional" , value: "traditional"},
     ],
   },
   {
     title: "Occasion",
     items: [
-      { id: 1, name: "Anniversary" },
-      { id: 2, name: "Birthday" },
-      { id: 3, name: "Wedding" },
-      { id: 4, name: "Festival" },
+      { id: 1, name: "Anniversary" , value: "anniversary"},
+      { id: 2, name: "Birthday" , value: "birthday"},
+      { id: 3, name: "Wedding" , value: "wedding"},
+      { id: 4, name: "Festival" , value: "festival"},
      
     ],
   },
@@ -88,7 +88,7 @@ const FilterMenuBar = () => {
   const handleFilterChange = (event) => {
     const { name, checked } = event.target;
     if (checked) {
-      addFilterOption(name);
+      addFilterOption(name.toLowerCase());
     } else {
       removeFilterOption(name);
     }
@@ -147,7 +147,7 @@ const FilterMenuBar = () => {
                     name={item.name}
                     className="mr-2 cursor-pointer"
                     id={`checkbox-${item.id}`}
-                    checked={filterOptions.includes(item.name)}
+                    checked={filterOptions.includes(item.value)}
                   />
                   <span className="text-sm">{item.name}</span>
                 </label>

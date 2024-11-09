@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-const PriceBreakupSection = () => {
+const PriceBreakupSection = (matSpecs) => {
   return (
     <div className="mt-8 bg-surface p-6 rounded-lg shadow-md overflow-x-auto">
       <h2 className="text-2xl font-semibold text-onPrimary mb-4">Price Breakup</h2>
@@ -9,14 +9,26 @@ const PriceBreakupSection = () => {
         <thead className="text-xs text-onPrimary uppercase bg-accent">
           <tr>
             <th scope="col" className="px-6 py-3">Component</th>
-            <th scope="col" className="px-6 py-3">Gold Rate (Kt)</th>
-            <th scope="col" className="px-6 py-3">Weight (g)</th>
-            <th scope="col" className="px-6 py-3">Discount</th>
-            <th scope="col" className="px-6 py-3">Final Value</th>
+            <th scope="col" className="px-6 py-3">Quality</th>
+            <th scope="col" className="px-6 py-3">Weight</th>
+            <th scope="col" className="px-6 py-3">Discount(% | Flat)</th>
+            <th scope="col" className="px-6 py-3">Rate</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-surface border-b border-accent">
+
+          { matSpecs.materialSpecs.map((materialSpec, index) => {
+            return (
+              <tr key={index} className="bg-surface border-b border-accent">
+                <th scope="row" className="px-6 py-4 font-medium text-onPrimary whitespace-nowrap">{materialSpec.materialType}</th>
+                <td className="px-6 py-4">{materialSpec.quality}</td>
+                <td className="px-6 py-4">{materialSpec.materialWeight}</td>
+                <td className="px-6 py-4">{materialSpec.discount}</td>
+                <td className="px-6 py-4">₹{materialSpec.price}</td>
+              </tr>
+            )
+          })}
+          {/* <tr className="bg-surface border-b border-accent">
             <th scope="row" className="px-6 py-4 font-medium text-onPrimary whitespace-nowrap">Gold</th>
             <td className="px-6 py-4">18</td>
             <td className="px-6 py-4">4.5</td>
@@ -36,7 +48,8 @@ const PriceBreakupSection = () => {
             <td className="px-6 py-4">-</td>
             <td className="px-6 py-4">10%</td>
             <td className="px-6 py-4">₹5,000</td>
-          </tr>
+            
+          </tr> */}
         </tbody>
         <tfoot>
           <tr className="font-semibold text-onPrimary bg-accent">
@@ -44,7 +57,7 @@ const PriceBreakupSection = () => {
             <td className="px-6 py-3"></td>
             <td className="px-6 py-3"></td>
             <td className="px-6 py-3"></td>
-            <td className="px-6 py-3">₹55,000</td>
+            <td className="px-6 py-3">₹{matSpecs.finalPrice ?? "NA"}</td>
           </tr>
         </tfoot>
       </table>

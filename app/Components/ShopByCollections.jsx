@@ -46,7 +46,8 @@ const ShopByCollections = () => {
         },
     ];
   return (
-    <div className='w-full lg:h-screen h-max bg-primary lg:px-12 px-4 lg:py-12 py-4'>
+    <div className='bg-primary '>
+    <div className='w-full lg:h-screen 2xl:h-[70vh] max-w-7xl mx-auto h-max lg:px-12 px-4 lg:py-12 py-4'>
        <div className={`${baskervville.className} w-full text-center` }>
         <h1 className='md:text-5xl text-3xl mb-4 text-onPrimary'>Shop By Collections</h1>
         <p className=''>Unveil stunning jewellery collections crafted to shine for every moment and style!
@@ -78,6 +79,7 @@ const ShopByCollections = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   )
 }

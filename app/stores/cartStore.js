@@ -1,14 +1,16 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { cartEndPoints } from '../shared/endPoints';
+import toast from 'react-hot-toast';
 
 
 
-export const useCartStore = create((set)=>({
+export const useCartStore = create((set,get)=>({
     cartItems:[],
     cartTotal:0,
     isLoading:false,
     error:null,
+    subTotal:0,
     /**
      * Adds a product to the cart.
      * 
@@ -31,25 +33,31 @@ export const useCartStore = create((set)=>({
      */
     addToCart: async (product) => {
         try {
+            if(!product){
+                throw new Error('Product not found')
+            }
             set({ isLoading: true });
             const response = await axios.post(cartEndPoints, product);
             if (response.status === 200 || response.status === 201) {
-                console.log(response.data.cart)
                 set({ isLoading: false });
+                toast.success('Product added to cart');
             }
             
         } catch (error) {
             set({ isLoading: false, error: error.message });
+            toast.error('Failed to add product to cart');
         }
     },
 
     getCartItems: async(email)=>{
         try{
             set({isLoading:true})
-            const response = await axios.get(`${cartEndPoints}?email=${email}`)
-            console.log(response.data.cart)
+            const response = await axios.get(cartEndPoints,{params:{email}})
             if(response.status === 200){
                 set({cartItems:[...response.data.cart]})
+                get().totalCartPrice()
+                get().calSubTotal()
+               
             }
             set({isLoading:false})
         }catch(error){
@@ -58,21 +66,49 @@ export const useCartStore = create((set)=>({
     },
 
     totalCartPrice: ()=>{
-        const total = cartItems.reduce((acc,item)=>acc + item.totalPrice,0)
+        const total = get().cartItems.reduce((acc,item)=>acc + item.totalPrice,0)
         set({cartTotal:total})
     },
 
     deleteCartItem: async(id,email)=>{
         try{
-            set({isLoading:true})
-            const response = await axios.delete(`${cartEndPoints}?id=${id}&email=${email}`)
+            // set({isLoading:true})
+            const response = await axios.delete(cartEndPoints,{params:{id,email}})
             if(response.status === 200){
-                const updatedCart = cartItems.filter(item=>item._id !== id)
+                const updatedCart = get().cartItems.filter(item=>item._id !== id)
                 set({cartItems:updatedCart})
-                set({isLoading:false})
+                get().totalCartPrice()
+                get().calSubTotal()
+                toast.success('Product removed from cart')
             }
         }catch(error){
-            set({isLoading:false,error:error.message})
+            toast.error('Failed to remove product from cart')
         }
+    },
+
+    manageCartQty: (type,index)=>{
+            const updatedCart = get().cartItems.map((item,i)=>{
+                if(i === index){
+                    if(type === 'dec' && item.quantity > 1){
+                        item.quantity -= 1;
+                    }else if (type === 'inc'){
+                        item.quantity += 1
+                    }
+                    item.totalPrice = item.quantity * item.product.sellingPrice
+                    return item
+                }
+                return item
+            })
+            set((_)=>({cartItems:updatedCart}))
+            get().totalCartPrice()
+            get().calSubTotal()
+        
+        
+    },
+
+    calSubTotal:()=>{
+        const subTotal = get().cartItems.reduce((acc,item)=>acc + (item.product.costPrice * item.quantity),0)
+        set({subTotal:subTotal})
+        return subTotal
     }
 }))

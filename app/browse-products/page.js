@@ -121,7 +121,7 @@ const BrowseProductsPage = () => {
           </div>:null}
 
           {/* products view */}
-          <div className="grid grid-cols-2 lg:grid-cols-3  2xl:grid-cols-5 md:gap-8  gap-2">
+          <div className="grid grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 md:gap-8  gap-2">
             {isLoading ? (
               <div className="flex justify-center items-center h-full">
                 <Loader />
@@ -139,6 +139,7 @@ const BrowseProductsPage = () => {
              
                   return (
                     <div 
+                        className="border border-gray-300 p-2 rounded-xl group cursor-pointer hover:bg-white"
                       onClick={() => router.push(`/browse-products/${product.productId}`)}
                     key={index}>
                       <img
@@ -150,8 +151,8 @@ const BrowseProductsPage = () => {
                         {product.productName}
                       </h1>
                       <div>
-                        <span className="sm:text-xl text-sm text-onPrimary font-semibold mr-3">{product.sellingPrice}</span>
-                        <span className="line-through sm:text-sm text-xs text-gray-500">{product.costPrice}</span>
+                        <span className="sm:text-xl text-sm text-onPrimary font-semibold mr-3">{"₹"}{product.sellingPrice}</span>
+                        <span className="line-through sm:text-sm text-xs text-gray-500">{"₹"} {product.costPrice}</span>
                       </div>
                       <h2 className="py-0.5 my-1 text-xs px-2 bg-accent text-center w-max rounded-md">
                         {product.discount} Off</h2>
