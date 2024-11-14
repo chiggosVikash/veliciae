@@ -15,3 +15,6 @@ export const cartEndPoints = `${baseUrl}/cart`;
 /// wishlist end points
 export const wishlistEndPoints = `${baseUrl}/wishlist`;
 
+/// address end points
+export const addressEndPoints = `${baseUrl}/address`;
+

@@ -3,45 +3,38 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaPhone, FaMapMarkerAlt, FaHome, FaCity, FaFlag } from 'react-icons/fa';
 import AddressGrid from './AddressGrid';
+import { useAddressStore } from '../stores/adressStore';
+import { useSession } from 'next-auth/react';
+
+const addressJson = {
+  name: '',
+  phone: '',
+  pincode: '',
+  area: '',
+  streetLocality: '',
+  flatNumber: '',
+  landmark: '',
+  city: '',
+  state: '',
+  addressType: 'home'
+}
 
 const AddAddress = () => {
-  const [addresses, setAddresses] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [newAddress, setNewAddress] = useState({
-    name: '',
-    phone: '',
-    pincode: '',
-    area: '',
-    streetLocality: '',
-    flatNumber: '',
-    landmark: '',
-    city: '',
-    state: '',
-    addressType: 'home'
-  });
+  const [newAddress, setNewAddress] = useState(addressJson);
+  const {data: session, status} = useSession();
+
+  const {getAddresses,addresses,isProcessed,isProcessing,saveAddress,deleteAddress,setDefaultAddress} = useAddressStore();
 
   useEffect(() => {
     // Simulating fetching addresses
     setIsLoading(true);
     // Replace this with your actual data fetching logic
-    const sampleAddresses = [
-      {
-        name: 'John Doe',
-        phone: '1234567890',
-        pincode: '123456',
-        area: 'Downtown',
-        streetLocality: 'Main Street',
-        flatNumber: 'Apt 101',
-        landmark: 'Near City Park',
-        city: 'Metropolis',
-        state: 'State',
-        addressType: 'home'
-      }
-    ];
-    setAddresses(sampleAddresses);
-    setIsLoading(false);
-  }, []);
+    if(status === 'authenticated'){
+      getAddresses(session.user.email);
+    }
+  }, [status]);
 
   const handleInputChange = (e) => {
     setNewAddress({ ...newAddress, [e.target.name]: e.target.value });
@@ -49,20 +42,9 @@ const AddAddress = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setAddresses([...addresses, newAddress]);
     setIsAdding(false);
-    setNewAddress({
-      name: '',
-      phone: '',
-      pincode: '',
-      area: '',
-      streetLocality: '',
-      flatNumber: '',
-      landmark: '',
-      city: '',
-      state: '',
-      addressType: 'home'
-    });
+    saveAddress(newAddress,session.user.email);
+    setNewAddress(addressJson);
   };
 
   const inputFields = [
@@ -77,7 +59,7 @@ const AddAddress = () => {
     { name: 'state', label: 'State', icon: FaFlag, type: 'text' },
   ];
 
-  if (isLoading) {
+  if (isProcessing) {
     return (
       <div className="w-full mx-auto p-8 bg-surface rounded-xl shadow-2xl flex justify-center items-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-accent"></div>
@@ -94,7 +76,7 @@ const AddAddress = () => {
     >
       <h2 className="text-3xl font-bold mb-8 text-center text-onSurface">My Address</h2>
       
-      <AddressGrid addresses={addresses} setIsAdding={setIsAdding}/> 
+      <AddressGrid addresses={addresses} setIsAdding={setIsAdding} deleteAddress={deleteAddress} setDefaultAddress={setDefaultAddress}/> 
       {isAdding && (
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

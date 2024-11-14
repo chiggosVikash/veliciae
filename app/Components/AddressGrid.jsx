@@ -1,11 +1,14 @@
 'use client'
 import React from 'react'
+import { useSession } from 'next-auth/react'
 
-const AddressGrid = ({addresses, setIsAdding}) => {
+const AddressGrid = ({addresses, setIsAdding,deleteAddress,setDefaultAddress}) => {
+  const {data:session} = useSession();
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {addresses.map((address, index) => (
+
           <div key={index} className="bg-white rounded-lg shadow-md p-4 relative">
             <h3 className="font-bold text-lg mb-2">{address.name}</h3>
             <p className="text-sm mb-1">{address.flatNumber}, {address.streetLocality}</p>
@@ -15,11 +18,15 @@ const AddressGrid = ({addresses, setIsAdding}) => {
             <div className="flex justify-between items-center text-sm text-blue-600">
               <button className="text-onPrimary">Edit</button>
               <div className="w-px h-4 bg-accent mx-2"></div>
-              <button className="text-onPrimary">Remove</button>
+              <button 
+                onClick={() => deleteAddress(address._id)}
+              className="text-onPrimary">Remove</button>
               <div className="w-px h-4 bg-accent mx-2"></div>
-              <button className="text-onPrimary">Set as Default</button>
+              <button 
+                onClick={() => setDefaultAddress(session.user.email,address._id)}
+              className="text-onPrimary">Set as Default</button>
             </div>
-            {index === 0 && (
+            {address.isDefault === true && (
               <div className="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
                 Default
               </div>
