@@ -7,7 +7,7 @@ export default function ProductDetails() {
        <>
        {/* Left side - Product details */}
        <div className="w-full  bg-white rounded-lg shadow-md p-6">
-          <div className="flex flex-col sm:flex-row">
+          {/* <div className="flex flex-col sm:flex-row">
             <div className="w-full sm:w-1/3 bg-gray-100 rounded-lg mb-4 sm:mb-0 sm:mr-4">
               <Image
                 src={Image1.src}
@@ -35,7 +35,7 @@ export default function ProductDetails() {
                 
               </div>
             </div>
-          </div>
+          </div> */} 
           <DeliveryAddress />
         </div>
       </>

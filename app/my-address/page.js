@@ -2,26 +2,26 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaPlus, FaMapMarkerAlt } from 'react-icons/fa';
-
+import { useAddressStore } from '../stores/adressStore';
 const MyAddress = () => {
-  const [addresses, setAddresses] = useState([]);
+  // const [addresses, setAddresses] = useState([]);
   const [newAddress, setNewAddress] = useState('');
+
+  const {getAddresses,addresses} = useAddressStore();
 
   useEffect(() => {
     // Fetch addresses from API or load from state management
     // This is a placeholder. Replace with actual data fetching logic
-    setAddresses([
-      '123 Main St, City, Country, 12345',
-      '456 Elm St, Town, Country, 67890',
-    ]);
+    // setAddresses([
+    //   '123 Main St, City, Country, 12345',
+    //   '456 Elm St, Town, Country, 67890',
+    // ]);
+    getAddresses()
   }, []);
 
   const handleAddAddress = (e) => {
     e.preventDefault();
-    if (newAddress.trim()) {
-      setAddresses([...addresses, newAddress.trim()]);
-      setNewAddress('');
-    }
+    console.log(e)
   };
 
   return (

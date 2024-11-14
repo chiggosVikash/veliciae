@@ -12,8 +12,10 @@ export default function DeliveryAddress() {
                         Kadampukur, West Bengal 700135
                     </p>
                 </div>
-                <button className="text-onPrimary text-sm mt-2 hover:translate-x-2 transition-all duration-300">
-                    Other Addresses
+
+                <button 
+                   className="text-onPrimary text-sm mt-2 hover:translate-x-2 transition-all duration-300">
+                    Change Address
                 </button>
             </div>
 
